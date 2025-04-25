@@ -20,8 +20,10 @@ int main() {
     std::fstream in;
     in.open("banker.txt");
 
-    if(in.fail())
+    if(in.fail()) {
+        std::cerr << "Failed to open file" << std::endl;
     exit(1);
+    }
 
     for(int i = 0; i < 5; i++){
         for(int j = 0; j < 3; j++){
@@ -54,50 +56,50 @@ int main() {
 
     int need[p][r];
     for(int i = 0; i < p; i++) {
-        for(int j = 0; j < r; j++)
+        for(int j = 0; j < r; j++){
             need[i][j] = max[i][j] - alloc[i][j];
         }
-
+    }
         int y = 0;
         for(int k = 0; k < 5; k++) {
             for(int i = 0; i < p; i++) {
                 if(f[i] == 0) {
-
                     int flag = 0;
-                    for ( int j = 0; j < r; j++) {
+                    for (int j = 0; j < r; j++) {
                         if(need[i][j] > avil[j]) {
                             flag = 1;
                             break;
                         }
                     }
-                    if(flag = 0) {
+                    if(flag == 0) {
                         ans[ind++] = i;
-                        for(y = 0; y < r; y++)
+                        for(y = 0; y < r; y++) {
                             avil[y] += alloc[i][y];
-                            f[i] = 1;
+                        }
+                        f[i] = 1;
                     }
                 }
             }
         }
 
-        int flag = 1;
-
+        int safe = 1;
         for(int i = 0; i < p; i++) {
             if(f[i] == 0) {
-                flag = 0;
-                std::cout << "the given sequence is NOT safe" << std::endl;
+                safe = 0;
+                std::cout << "The system is NOT in a safe state" << std::endl;
                 break;
             }
         }
 
-        if(flag == 1) {
-            std::cout << "The given sequence is safe" << std::endl;
-            for(int i = 0; i < p -1; i++)
-                std::cout << " p" << ans[i] << " ->" << std::endl;
-                std::cout << " p" << ans[p - 1] << std::endl;
+        if(safe == 1) {
+            std::cout << "The system is in a safe state. Safe sequence: " << std::endl;
+            for(int i = 0; i < p -1; i++) {
+                std::cout << " P" << ans[i] << "-> ";
+            }
+                std::cout << " P" << ans[p - 1];
         }
 
-        return (0);
+        return 0;
 }
 
 int func(char ch) {
