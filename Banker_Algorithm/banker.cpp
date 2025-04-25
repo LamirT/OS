@@ -94,9 +94,9 @@ int main() {
         if(safe == 1) {
             std::cout << "The system is in a safe state. Safe sequence: " << std::endl;
             for(int i = 0; i < p -1; i++) {
-                std::cout << " P" << ans[i] << "-> ";
+                std::cout << " P" << ans[i] << " -> ";
             }
-                std::cout << " P" << ans[p - 1];
+                std::cout << " P" << ans[p - 1] << std::endl;
         }
 
         return 0;
